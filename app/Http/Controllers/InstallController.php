@@ -26,6 +26,15 @@ class InstallController extends Controller
 
         $log = [];
 
+        // 0. Clear any stale cached config/routes/views so .env is read fresh.
+        foreach (['config:clear', 'route:clear', 'view:clear'] as $cmd) {
+            try {
+                Artisan::call($cmd);
+            } catch (\Throwable $e) {
+                // ignore — nothing cached
+            }
+        }
+
         // 1. Run migrations
         Artisan::call('migrate', ['--force' => true]);
         $log[] = '✓ Database migrated';

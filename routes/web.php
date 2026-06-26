@@ -32,7 +32,16 @@ Route::get('/', function () {
 | seed badges/settings and create the first admin. 404s when DEPLOY_KEY is
 | blank — clear it in .env afterwards to disable.
 */
-Route::get('/install/{token}', [InstallController::class, 'run']);
+// Session/cookie/CSRF middleware are stripped so the installer can run against
+// an empty database (database session/cache tables don't exist yet).
+Route::get('/install/{token}', [InstallController::class, 'run'])
+    ->withoutMiddleware([
+        \Illuminate\Cookie\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
+    ]);
 
 /*
 |--------------------------------------------------------------------------
