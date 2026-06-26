@@ -67,12 +67,12 @@ class InstallController extends Controller
             $log[] = '• Admin already exists — skipped';
         }
 
-        // 5. Cache routes & compiled views for performance. We deliberately do
-        //    NOT cache config, so that blanking DEPLOY_KEY in .env instantly
-        //    disables this installer (no SSH needed to clear a config cache).
-        Artisan::call('route:cache');
+        // 5. Pre-compile Blade views for performance. We deliberately do NOT
+        //    cache config (so blanking DEPLOY_KEY in .env instantly disables
+        //    this installer without SSH) nor routes (this app uses a couple of
+        //    closure routes, which Laravel cannot serialize).
         Artisan::call('view:cache');
-        $log[] = '✓ Route & view caches built';
+        $log[] = '✓ View cache built';
 
         $log[] = '';
         $log[] = 'DONE ✅  Now open .env and set DEPLOY_KEY= (blank) to disable this installer.';
