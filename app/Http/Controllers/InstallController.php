@@ -67,14 +67,16 @@ class InstallController extends Controller
             $log[] = '• Admin already exists — skipped';
         }
 
-        // 5. Cache config/routes/views for production performance
-        Artisan::call('config:cache');
+        // 5. Cache routes & compiled views for performance. We deliberately do
+        //    NOT cache config, so that blanking DEPLOY_KEY in .env instantly
+        //    disables this installer (no SSH needed to clear a config cache).
         Artisan::call('route:cache');
         Artisan::call('view:cache');
-        $log[] = '✓ Caches built';
+        $log[] = '✓ Route & view caches built';
 
         $log[] = '';
-        $log[] = 'DONE. Now blank out DEPLOY_KEY in .env (and re-deploy) to disable this installer.';
+        $log[] = 'DONE ✅  Now open .env and set DEPLOY_KEY= (blank) to disable this installer.';
+        $log[] = 'Then log in at /login with your admin email.';
 
         return response('<pre style="font:15px/1.7 monospace;background:#0f172a;color:#a7f3d0;padding:24px;border-radius:12px;max-width:760px;margin:40px auto">'
             . e(implode("\n", $log))
