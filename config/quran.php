@@ -11,7 +11,7 @@ return [
     | be verified in the UI (shown in the footer / settings page).
     |
     */
-    'version' => '1.1.0',
+    'version' => '1.2.0',
 
     /*
     |--------------------------------------------------------------------------

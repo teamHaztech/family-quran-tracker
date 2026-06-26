@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    // One-time web installer secret (Hostinger/no-SSH setup). Blank = disabled.
+    'deploy_key' => env('DEPLOY_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

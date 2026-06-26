@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\InstallController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\Member\DashboardController as MemberDashboardController;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +23,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login');
 });
+
+/*
+|--------------------------------------------------------------------------
+| One-time web installer (no-SSH hosts like Hostinger)
+|--------------------------------------------------------------------------
+| Visit /install/<DEPLOY_KEY> once after deploying to migrate the database,
+| seed badges/settings and create the first admin. 404s when DEPLOY_KEY is
+| blank — clear it in .env afterwards to disable.
+*/
+Route::get('/install/{token}', [InstallController::class, 'run']);
 
 /*
 |--------------------------------------------------------------------------
