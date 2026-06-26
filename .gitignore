@@ -1,0 +1,26 @@
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+
+# NOTE: For Hostinger shared hosting (Git deploy, no SSH/Composer/npm) we
+# intentionally COMMIT the vendor/ directory and the built public/build assets,
+# so they are NOT ignored here. Run `npm run build` before committing.
+Homestead.json
+Homestead.yaml
+Thumbs.db

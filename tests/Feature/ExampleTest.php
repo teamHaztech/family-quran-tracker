@@ -1,0 +1,18 @@
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+
+class ExampleTest extends TestCase
+{
+    /**
+     * Guests visiting the root are redirected to the login screen.
+     */
+    public function test_the_application_redirects_guests_to_login(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertRedirect(route('login'));
+    }
+}
